@@ -1,6 +1,8 @@
 package com.example.cursomager.controller;
 
+import com.example.cursomager.model.Aluno;
 import com.example.cursomager.model.Curso;
+import com.example.cursomager.repository.CursoRepository;
 import com.example.cursomager.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,31 +17,42 @@ import java.util.Optional;
 
 public class CursoController {
 
-    @Autowired
-    private CursoService cursoService;
+    private final CursoRepository cursoRepository;
+    public CursoController(CursoRepository cursoRepository) {
+        this.cursoRepository = cursoRepository;
+    }
 
     //GET
     @GetMapping
     public List<Curso> listarCursos() {
-        return cursoService.listarTodos();
+        return cursoRepository.findAll();
+    }
+
+    @GetMapping("/{id}/alunos")
+    public List<Aluno> listarAlunosDoCurso(@PathVariable Long id) {
+        Curso curso = cursoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Curso não encontrado"));
+
+        return curso.getAlunos();
     }
 
     @PostMapping
-    public String adicionarCurso(@RequestBody Curso curso) {
-        return cursoService.adicionarCurso(curso);
+    public Curso adicionarCurso(@RequestBody Curso curso) {
+        return cursoRepository.save(curso);
     }
 
     //GET BY ID
     @GetMapping("/{id}")
-    public Optional<Curso> buscarPorId(@PathVariable Long id) {
-        return cursoService.buscarCursoPorId(id);
+    public Curso buscarPorId(@PathVariable Long id) {
+        return cursoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Curso não encontrado!"));
     }
 
     //DELETE
 
     @DeleteMapping("/{id}")
-    public String removerCurso(@PathVariable Long id) {
-        return cursoService.removerCurso(id);
+    public void removerCurso(@PathVariable Long id) {
+        cursoRepository.deleteById(id);
     }
 
 }

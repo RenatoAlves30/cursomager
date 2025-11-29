@@ -12,6 +12,10 @@ public class Aluno extends Pessoa{
 
     private String situacao;
 
+    @ManyToOne
+    @JoinColumn(name = "curso_id")
+    private Curso curso;
+
     public Aluno() {
     }
 

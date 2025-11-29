@@ -2,6 +2,8 @@ package com.example.cursomager.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +15,9 @@ public class Curso {
     private String nome;
     private int carga_horaria;
     private int vagas;
+
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Aluno> alunos = new ArrayList<>();
 
     public Curso() {
     }
@@ -54,6 +59,14 @@ public class Curso {
 
     public void setVagas(int vagas) {
         this.vagas = vagas;
+    }
+
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
     }
 
     @Override

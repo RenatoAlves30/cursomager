@@ -15,16 +15,16 @@ public class MatriculaDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public int novaMatricula(Matricula matricula) {
-
-        String sql = "INSERT INTO matriculas (aluno_id, curso_id, prioridade, status) VALUES (?, ?, ?, ?)";
-
-        return jdbcTemplate.update(sql,
-                matricula.getAluno_id(),
-                matricula.getCurso_id(),
-                matricula.getPrioridade(),
-                matricula.getStatus());
-    }
+//    public int novaMatricula(Matricula matricula) {
+//
+//        String sql = "INSERT INTO matriculas (aluno_id, curso_id, prioridade, status) VALUES (?, ?, ?, ?)";
+//
+//        return jdbcTemplate.update(sql,
+//                matricula.getAluno_id(),
+//                matricula.getCurso_id(),
+//                matricula.getPrioridade(),
+//                matricula.getStatus());
+//    }
 
 
 
