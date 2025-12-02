@@ -1,5 +1,7 @@
 package com.example.cursomager.controller;
 
+import com.example.cursomager.dto.CursoDTO;
+import com.example.cursomager.mapper.CursoMapper;
 import com.example.cursomager.model.Aluno;
 import com.example.cursomager.model.Curso;
 import com.example.cursomager.repository.CursoRepository;
@@ -34,6 +36,14 @@ public class CursoController {
                 .orElseThrow(() -> new RuntimeException("Curso não encontrado"));
 
         return curso.getAlunos();
+    }
+
+    @GetMapping("/mapped")
+    public List<CursoDTO> listarCursosMapper() {
+        return cursoRepository.findAll()
+                .stream()
+                .map(CursoMapper::toDTO)
+                .toList();
     }
 
     @PostMapping

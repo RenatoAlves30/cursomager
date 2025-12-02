@@ -1,5 +1,7 @@
 package com.example.cursomager.controller;
 
+import com.example.cursomager.dto.AlunoDTO;
+import com.example.cursomager.mapper.AlunoMapper;
 import com.example.cursomager.model.Aluno;
 import com.example.cursomager.repository.AlunoRepository;
 import com.example.cursomager.service.AlunoService;
@@ -35,6 +37,30 @@ public class AlunoController {
     public Aluno buscarPorId(@PathVariable Long id) {
         return alunoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Aluno não encontradoo"));
+    }
+
+    @GetMapping("/buscarPorNome")
+    public List<Aluno> buscarPorNome(@RequestParam String nome) {
+        return alunoRepository.findByNomeContaining(nome);
+    }
+
+    @GetMapping("/maioresDe")
+    public List<Aluno> buscarMaioresDe(@RequestParam int idade) {
+        return alunoRepository.findByIdadeGreaterThan(idade);
+    }
+
+    @GetMapping("/buscarPorCurso")
+    public List<Aluno> buscarPorCurso(@RequestParam String nomeCurso) {
+        return alunoRepository.findByCursoNomeContaining(nomeCurso);
+    }
+
+    // Lista com Mapper
+    @GetMapping("/mapped")
+    public List<AlunoDTO> listarAlunosMapper() {
+        return alunoRepository.findAll()
+                .stream()
+                .map(AlunoMapper::toDTO)
+                .toList();
     }
 
     // DELETE BY ID
