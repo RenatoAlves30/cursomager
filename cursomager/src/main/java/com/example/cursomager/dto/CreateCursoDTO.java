@@ -1,25 +1,25 @@
 package com.example.cursomager.dto;
 
-public class CursoDTO {
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
-    private Long id;
+public class CreateCursoDTO {
+    @NotBlank(message = "O nome do curso é obrigatório.")
     private String nome;
+
+    @Min(value = 1, message = "A carga horária deve ser maior que 0.")
     private int carga_horaria;
+
+    @Min(value = 1, message = "O número de vagas deve ser maior que 0.")
     private int vagas;
 
-    public CursoDTO(Long id, String nome, int carga_horaria, int vagas) {
-        this.id = id;
+    public CreateCursoDTO() {
+    }
+
+    public CreateCursoDTO(String nome, int carga_horaria, int vagas) {
         this.nome = nome;
         this.carga_horaria = carga_horaria;
         this.vagas = vagas;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -45,4 +45,6 @@ public class CursoDTO {
     public void setVagas(int vagas) {
         this.vagas = vagas;
     }
+
+
 }

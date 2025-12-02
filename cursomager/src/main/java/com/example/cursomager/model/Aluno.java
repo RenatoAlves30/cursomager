@@ -1,6 +1,7 @@
 package com.example.cursomager.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "alunos")
@@ -12,6 +13,7 @@ public class Aluno extends Pessoa{
     private String situacao;
 
     @ManyToOne
+    @NotNull
     @JoinColumn(name = "curso_id")
     private Curso curso;
 
@@ -47,6 +49,14 @@ public class Aluno extends Pessoa{
 
     public void setSituacao(String situacao) {
         this.situacao = situacao;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
     public  String apresentar() {

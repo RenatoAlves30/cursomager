@@ -1,68 +1,42 @@
 package com.example.cursomager.controller;
 
+import com.example.cursomager.dto.CreateCursoDTO;
 import com.example.cursomager.dto.CursoDTO;
-import com.example.cursomager.mapper.CursoMapper;
-import com.example.cursomager.model.Aluno;
 import com.example.cursomager.model.Curso;
-import com.example.cursomager.repository.CursoRepository;
 import com.example.cursomager.service.CursoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/cursos")
 
 public class CursoController {
+    private final CursoService cursoService;
 
-    private final CursoRepository cursoRepository;
-    public CursoController(CursoRepository cursoRepository) {
-        this.cursoRepository = cursoRepository;
-    }
-
-    //GET
-    @GetMapping
-    public List<Curso> listarCursos() {
-        return cursoRepository.findAll();
-    }
-
-    @GetMapping("/{id}/alunos")
-    public List<Aluno> listarAlunosDoCurso(@PathVariable Long id) {
-        Curso curso = cursoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Curso não encontrado"));
-
-        return curso.getAlunos();
-    }
-
-    @GetMapping("/mapped")
-    public List<CursoDTO> listarCursosMapper() {
-        return cursoRepository.findAll()
-                .stream()
-                .map(CursoMapper::toDTO)
-                .toList();
+    public CursoController(CursoService cursoService) {
+        this.cursoService = cursoService;
     }
 
     @PostMapping
-    public Curso adicionarCurso(@RequestBody Curso curso) {
-        return cursoRepository.save(curso);
+    public CursoDTO criar(@RequestBody @Valid CreateCursoDTO dto) {
+        return cursoService.criar(dto);
     }
 
-    //GET BY ID
+    @GetMapping
+    public List<CursoDTO> listar() {
+        return cursoService.listar();
+    }
+
     @GetMapping("/{id}")
     public Curso buscarPorId(@PathVariable Long id) {
-        return cursoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Curso não encontrado!"));
+        return cursoService.buscarPorId(id);
     }
 
-    //DELETE
-
     @DeleteMapping("/{id}")
-    public void removerCurso(@PathVariable Long id) {
-        cursoRepository.deleteById(id);
+    public void deletar(@PathVariable Long id) {
+        cursoService.deletar(id);
     }
 
 }
