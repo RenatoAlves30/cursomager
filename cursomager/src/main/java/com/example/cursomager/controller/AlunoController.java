@@ -1,13 +1,10 @@
 package com.example.cursomager.controller;
 
+
 import com.example.cursomager.dto.AlunoDTO;
 import com.example.cursomager.dto.CreateAlunoDTO;
-import com.example.cursomager.mapper.AlunoMapper;
-import com.example.cursomager.model.Aluno;
-import com.example.cursomager.repository.AlunoRepository;
-import com.example.cursomager.service.AlunoService;
+import com.example.cursomager.service.impl.AlunoServiceImpl;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -16,9 +13,9 @@ import java.util.*;
 @RequestMapping("/alunos")
 public class AlunoController {
 
-    private final AlunoService alunoService;
+    private final AlunoServiceImpl alunoService;
 
-    public AlunoController(AlunoService alunoService) {
+    public AlunoController(AlunoServiceImpl alunoService) {
         this.alunoService = alunoService;
     }
 

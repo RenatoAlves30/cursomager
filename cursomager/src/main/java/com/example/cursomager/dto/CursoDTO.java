@@ -1,48 +1,8 @@
 package com.example.cursomager.dto;
 
-public class CursoDTO {
-
-    private Long id;
-    private String nome;
-    private int carga_horaria;
-    private int vagas;
-
-    public CursoDTO(Long id, String nome, int carga_horaria, int vagas) {
-        this.id = id;
-        this.nome = nome;
-        this.carga_horaria = carga_horaria;
-        this.vagas = vagas;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getCarga_horaria() {
-        return carga_horaria;
-    }
-
-    public void setCarga_horaria(int carga_horaria) {
-        this.carga_horaria = carga_horaria;
-    }
-
-    public int getVagas() {
-        return vagas;
-    }
-
-    public void setVagas(int vagas) {
-        this.vagas = vagas;
-    }
-}
+public record CursoDTO(
+        Long id,
+        String nome,
+        int cargaHoraria,
+        int vagas
+) {}

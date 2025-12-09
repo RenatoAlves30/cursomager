@@ -1,9 +1,9 @@
 package com.example.cursomager.controller;
 
+
 import com.example.cursomager.dto.CreateCursoDTO;
 import com.example.cursomager.dto.CursoDTO;
-import com.example.cursomager.model.Curso;
-import com.example.cursomager.service.CursoService;
+import com.example.cursomager.service.impl.CursoServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +13,9 @@ import java.util.List;
 @RequestMapping("/cursos")
 
 public class CursoController {
-    private final CursoService cursoService;
+    private final CursoServiceImpl cursoService;
 
-    public CursoController(CursoService cursoService) {
+    public CursoController(CursoServiceImpl cursoService) {
         this.cursoService = cursoService;
     }
 
@@ -30,7 +30,7 @@ public class CursoController {
     }
 
     @GetMapping("/{id}")
-    public Curso buscarPorId(@PathVariable Long id) {
+    public CursoDTO buscarPorId(@PathVariable Long id) {
         return cursoService.buscarPorId(id);
     }
 

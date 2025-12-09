@@ -7,26 +7,25 @@ import com.example.cursomager.model.Curso;
 
 public class AlunoMapper {
 
+    public static Aluno toEntity(CreateAlunoDTO dto, Curso curso) {
+        Aluno aluno = new Aluno();
+        aluno.setNome(dto.nome());
+        aluno.setEmail(dto.email());
+        aluno.setIdade(dto.idade());
+        aluno.setMatricula(dto.matricula());
+        aluno.setCurso(curso);
+        aluno.setSituacao("ATIVO");
+        return aluno;
+    }
+
     public static AlunoDTO toDTO(Aluno aluno) {
-
-        String nomeCurso = aluno.getCurso() != null ? aluno.getCurso().getNome() : "Sem curso";
-
         return new AlunoDTO(
                 aluno.getId(),
                 aluno.getNome(),
                 aluno.getEmail(),
+                aluno.getIdade(),
                 aluno.getMatricula(),
-                nomeCurso
+                aluno.getCurso() != null ? aluno.getCurso().getNome() : null
         );
-    }
-
-    public static Aluno toEntity(CreateAlunoDTO dto, Curso curso) {
-        Aluno aluno = new Aluno();
-        aluno.setNome(dto.getNome());
-        aluno.setEmail(dto.getEmail());
-        aluno.setIdade(dto.getIdade());
-        aluno.setMatricula(dto.getMatricula());
-        aluno.setCurso(curso);
-        return aluno;
     }
 }

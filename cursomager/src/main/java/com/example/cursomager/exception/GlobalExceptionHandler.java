@@ -1,4 +1,4 @@
-package com.example.cursomager.handler;
+package com.example.cursomager.exception;
 
 import com.example.cursomager.exception.AlunoException;
 import com.example.cursomager.exception.CursoException;
